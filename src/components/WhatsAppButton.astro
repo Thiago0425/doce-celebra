@@ -1,0 +1,42 @@
+---
+import { whatsappUrl } from "../data/site";
+
+interface Props {
+  label?: string;
+  class?: string;
+}
+
+const { label = "Pedir pelo WhatsApp", class: className } = Astro.props;
+---
+
+<a
+  class:list={["whatsapp-button", className]}
+  href={whatsappUrl}
+  target="_blank"
+  rel="noopener"
+>
+  {label}
+</a>
+
+<style>
+  .whatsapp-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-pill);
+    background: var(--color-primary);
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background 0.15s ease;
+  }
+
+  .whatsapp-button:hover {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+</style>

@@ -1,0 +1,153 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import WhatsAppButton from "../components/WhatsAppButton.astro";
+
+const destaques = [
+  {
+    numero: "4 sabores",
+    texto: "Chocolate, maracujá, morango com ninho e limão. Todos com preço fixo no cardápio.",
+  },
+  {
+    numero: "R$ 89,90",
+    texto: "É o bolo de chocolate, 20 cm e 15 fatias. O resto do cardápio está no catálogo.",
+  },
+  {
+    numero: "2 dias",
+    texto: "É a antecedência para encomendar. Entrega em Osasco e retirada em Guarulhos.",
+  },
+];
+---
+
+<BaseLayout
+  title="Doce Celebra — bolos de aniversário por encomenda"
+  description="Bolos de aniversário feitos no ateliê, com preço na tela. Entrega em Osasco, retirada em Guarulhos e pedido pelo WhatsApp."
+>
+  <section class="hero">
+    <div class="container hero-inner">
+      <p class="eyebrow">Bolos de aniversário por encomenda</p>
+      <h1>Bolo pronto em 2 dias, com o preço na tela.</h1>
+      <p class="hero-text">
+        Faço bolos há 6 anos, no meu ateliê. Massa e cobertura feitas do zero, sem
+        mistura pronta. Você escolhe o sabor, vê quanto custa e pede pelo WhatsApp.
+      </p>
+      <div class="hero-actions">
+        <WhatsAppButton />
+        <a class="hero-link" href="/catalogo">Ver sabores e preços</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="destaques" aria-labelledby="destaques-titulo">
+    <div class="container">
+      <h2 id="destaques-titulo" class="visually-hidden">O que você encontra aqui</h2>
+      <ul class="destaques-lista">
+        {
+          destaques.map((item) => (
+            <li class="destaque-card">
+              <p class="destaque-numero">{item.numero}</p>
+              <p class="destaque-texto">{item.texto}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="fecho">
+    <div class="container fecho-inner">
+      <h2>Escolha o bolo e peça pelo WhatsApp.</h2>
+      <p>
+        O pedido fecha na conversa, com 2 dias de antecedência. O pagamento é na
+        retirada ou na entrega.
+      </p>
+      <WhatsAppButton />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-6) var(--space-5);
+  }
+
+  .hero-inner {
+    max-width: 760px;
+  }
+
+  .eyebrow {
+    margin-bottom: var(--space-2);
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .hero-text {
+    max-width: 60ch;
+    font-size: 1.125rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+  }
+
+  .hero-link {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+
+  .destaques {
+    padding-block: var(--space-5);
+    background: var(--color-secondary);
+  }
+
+  .destaques-lista {
+    display: grid;
+    gap: var(--space-3);
+    list-style: none;
+  }
+
+  .destaque-card {
+    padding: var(--space-3);
+    border-radius: var(--radius-card);
+    background: var(--color-bg);
+  }
+
+  .destaque-numero {
+    margin-bottom: var(--space-1);
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .destaque-texto {
+    margin: 0;
+  }
+
+  .fecho {
+    padding-block: var(--space-6);
+  }
+
+  .fecho-inner {
+    max-width: 640px;
+  }
+
+  .fecho .whatsapp-button {
+    margin-top: var(--space-2);
+  }
+
+  @media (min-width: 720px) {
+    .destaques-lista {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

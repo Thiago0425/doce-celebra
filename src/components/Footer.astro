@@ -1,0 +1,60 @@
+---
+import { site, whatsappUrl } from "../data/site";
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <p class="footer-brand">Doce Celebra</p>
+      <p>Bolos de aniversário por encomenda, feitos no ateliê.</p>
+    </div>
+
+    <div>
+      <h2 class="footer-title">Contato</h2>
+      <p>
+        <a href={whatsappUrl} target="_blank" rel="noopener">WhatsApp</a>
+      </p>
+    </div>
+
+    <div>
+      <h2 class="footer-title">Horário</h2>
+      <p>{site.hours}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-6);
+    padding-block: var(--space-5);
+    background: var(--color-secondary);
+  }
+
+  .footer-inner {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .site-footer p {
+    margin: 0;
+  }
+
+  .footer-brand {
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+
+  .footer-title {
+    margin-bottom: var(--space-1);
+    font-size: 0.875rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  @media (min-width: 720px) {
+    .footer-inner {
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: var(--space-4);
+    }
+  }
+</style>

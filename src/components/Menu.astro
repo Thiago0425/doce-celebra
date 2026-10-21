@@ -1,0 +1,175 @@
+---
+import WhatsAppButton from "./WhatsAppButton.astro";
+
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/sobre", label: "Sobre" },
+  { href: "/catalogo", label: "Catálogo" },
+];
+
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/">Doce Celebra</a>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="menu-nav"
+    >
+      <span class="visually-hidden">Menu</span>
+      <span class="menu-toggle-bar" aria-hidden="true"></span>
+      <span class="menu-toggle-bar" aria-hidden="true"></span>
+      <span class="menu-toggle-bar" aria-hidden="true"></span>
+    </button>
+
+    <nav id="menu-nav" class="menu-nav" aria-label="Principal">
+      <ul class="menu-links">
+        {
+          links.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class:list={{ active: isActive(link.href) }}
+                aria-current={isActive(link.href) ? "page" : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <WhatsAppButton />
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
+  const nav = document.getElementById("menu-nav");
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!isOpen));
+    nav?.classList.toggle("is-open", !isOpen);
+  });
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-secondary);
+  }
+
+  .header-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding-block: var(--space-2);
+  }
+
+  .brand {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 0 10px;
+    border: 1px solid var(--color-secondary);
+    border-radius: var(--radius-card);
+    background: var(--color-bg);
+    cursor: pointer;
+  }
+
+  .menu-toggle-bar {
+    display: block;
+    height: 2px;
+    background: var(--color-text);
+  }
+
+  .menu-nav {
+    display: none;
+    flex-basis: 100%;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding-block: var(--space-1);
+  }
+
+  .menu-nav.is-open {
+    display: flex;
+  }
+
+  .menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    list-style: none;
+  }
+
+  .menu-links a {
+    display: block;
+    padding-block: var(--space-1);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .menu-links a:hover,
+  .menu-links a.active {
+    color: var(--color-accent);
+  }
+
+  .menu-links a.active {
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+
+  @media (min-width: 720px) {
+    .menu-toggle {
+      display: none;
+    }
+
+    .menu-nav,
+    .menu-nav.is-open {
+      display: flex;
+      flex-basis: auto;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--space-3);
+      padding-block: 0;
+    }
+
+    .menu-links {
+      flex-direction: row;
+      gap: var(--space-3);
+    }
+
+    .menu-links a {
+      padding-block: var(--space-1);
+      border-bottom: 2px solid transparent;
+    }
+
+    .menu-links a:hover,
+    .menu-links a.active {
+      border-bottom-color: var(--color-accent);
+    }
+  }
+</style>
